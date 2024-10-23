@@ -1,0 +1,35 @@
+CREATE DATABASE reconocimiento;
+USE reconocimiento
+
+-- Tabla de usuarios
+CREATE TABLE IF NOT EXISTS usuarios (
+    id INT(11) NOT NULL AUTO_INCREMENT,
+    nombre VARCHAR(50) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    imagen_facial LONGBLOB NULL,
+    face_descriptor JSON,  -- Añadimos esta columna para almacenar el descriptor facial
+    PRIMARY KEY (id),
+    UNIQUE INDEX idx_nombre_usuario (nombre)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Tabla de intentos de login
+CREATE TABLE IF NOT EXISTS intentos_login (
+    id INT(11) NOT NULL AUTO_INCREMENT,
+    usuario_id INT(11) NOT NULL,
+    fecha_hora DATETIME NOT NULL,
+    paso_password BOOLEAN NOT NULL DEFAULT FALSE,
+    paso_facial BOOLEAN NOT NULL DEFAULT FALSE,
+    exitoso BOOLEAN NOT NULL DEFAULT FALSE,
+    PRIMARY KEY (id),
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Tabla de registro de entradas y salidas
+CREATE TABLE IF NOT EXISTS registro (
+    id INT(11) NOT NULL AUTO_INCREMENT,
+    usuario_id INT(11) NOT NULL,
+    hora_entrada DATETIME NULL DEFAULT NULL,
+    hora_salida DATETIME NULL DEFAULT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
