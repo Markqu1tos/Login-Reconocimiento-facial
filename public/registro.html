@@ -3,26 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro - Reconocimiento Facial</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Registro - BioSyst</title>
+    <link rel="stylesheet" href="css/styles.css">
     <script src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
 </head>
 <body>
-    <div class="container">
-        <h1>Registro de Usuario</h1>
-        <form id="registro-form">
-            <input type="text" id="registro-name" placeholder="Nombre de usuario" required>
-            <input type="password" id="registro-password" placeholder="Contraseña" required>
-            <button type="button" id="capturar-foto" class="boton">Capturar Foto</button>
-            <div id="video-container" style="display:none;">
-                <video id="video" width="640" height="480" autoplay muted></video>
-                <canvas id="canvas" width="640" height="480"></canvas>
+    <header>
+        <div id="Titulo">
+            <h1><a href="index.html">BioSyst</a></h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html#servicios">Servicios</a></li>
+                <li><a href="index.html#footer">Contacto</a></li>
+                <li><a href="login.html">Iniciar Sesión</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="container">
+            <h1>Registro de Usuario</h1>
+            <form id="registro-form">
+                <input type="text" id="registro-name" placeholder="Nombre de usuario" required>
+                <input type="password" id="registro-password" placeholder="Contraseña" required>
+                <button type="button" id="capturar-foto" class="boton">Capturar Foto</button>
+                <div id="video-container" style="display:none;">
+                    <video id="video" width="640" height="480" autoplay muted></video>
+                    <canvas id="canvas" width="640" height="480"></canvas>
+                </div>
+                <button type="submit" class="boton">Registrar</button>
+            </form>
+            <div id="mensaje"></div>
+        </div>
+    </main>
+    <footer id="footer">
+        <div class="columnas-footer">
+            <div class="contac">
+                <h3>Contacto</h3>
+                <p>info@biosyst.com</p>
+                <p>+54 11 999-999</p>
             </div>
-            <button type="submit" class="boton">Registrar</button>
-        </form>
-        <div id="mensaje"></div>
-        <p><a href="index.html">Volver al inicio</a></p>
-    </div>
-    <script src="registro.js"></script>
+            <div class="contac">
+                <h3>Redes Sociales</h3>
+                <p><a href="#">Instagram</a></p>
+                <p><a href="#">Twitter</a></p>
+                <p><a href="#">LinkedIn</a></p>
+            </div>
+            <div class="contac">
+                <h3>Trabaja con Nosotros</h3>
+                <p>Envía tu CV a:</p>
+                <p><a href="mailto:careers@biosyst.com">careers@biosyst.com</a></p>
+            </div>
+        </div>
+        <div class="derechos">
+            <p>© 2024 BioSyst. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+    <script src="js/registro.js"></script>
 </body>
 </html>

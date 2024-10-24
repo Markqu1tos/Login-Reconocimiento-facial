@@ -3,16 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Reconocimiento Facial</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>BioSyst - Sistema de Reconocimiento Facial</title>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Bienvenido al Sistema de Reconocimiento Facial</h1>
-        <div class="opciones">
-            <a href="registro.html" class="boton">Registrarse</a>
-            <a href="login.html" class="boton">Iniciar Sesión</a>
+    <header>
+        <div id="Titulo">
+            <h1><a href="index.html">BioSyst</a></h1>
         </div>
-    </div>
+        <nav>
+            <ul>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#footer">Contacto</a></li>
+                <li><a href="login.html">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="slider-arriba">
+            <div class="slide">
+                <img src="img/carrusel 2.jpg" alt="Imagen 1">
+            </div>
+            <div class="slide">
+                <img src="img/carrusel 1.jpg" alt="Imagen 2">
+            </div>
+            <div class="mover-slider">
+                <button class="antes" onclick="moveSlide(-1)">❮</button>
+                <button class="despues" onclick="moveSlide(1)">❯</button>
+            </div>
+        </div>
+
+        <section id="tit">
+            <h1>Seguridad Biométrica de Calidad</h1>
+            <p>En BioSyst, ofrecemos soluciones avanzadas en seguridad biométrica.</p>
+        </section>
+
+        <section id="colum-tit">
+            <h1 class="tit-servicios">Servicios</h1>
+            <div class="columnas-tit">
+                <div class="columnas-a">
+                    <h1 class="tit-colu-bio">Biometría Facial</h1>
+                    <p>Utilizamos tecnología de punta para el reconocimiento facial preciso y seguro.</p>
+                </div>
+                <div class="columnas-a">
+                    <h1 class="tit-colu-bio">Biometría Dactilar</h1>
+                    <p>Sistemas de huellas dactilares para una identificación rápida y confiable.</p>
+                </div>
+                <div class="columnas-a">
+                    <h1 class="tit-colu-bio">Biometría por Voz</h1>
+                    <p>Autenticación avanzada mediante el reconocimiento de patrones de voz únicos.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="login">
+            <h1 class="log-tit">Regístrese ahora para obtener más información sobre nuestro software</h1>
+            <div class="tit-log">
+                <div class="reg-uno">
+                    <a href="registro.html"><p class="reg">Registrarte</p></a>
+                </div>
+                <div class="log-uno">
+                    <a href="login.html"><p class="log">Inicia sesión</p></a>
+                </div>
+            </div>        
+        </section>
+    </main>
+    <footer id="footer">
+        <div class="columnas-footer">
+            <div class="contac">
+                <h3>Contacto</h3>
+                <p>info@biosyst.com</p>
+                <p>+54 11 999-999</p>
+            </div>
+            <div class="contac">
+                <h3>Redes Sociales</h3>
+                <p><a href="#">Instagram</a></p>
+                <p><a href="#">Twitter</a></p>
+                <p><a href="#">LinkedIn</a></p>
+            </div>
+            <div class="contac">
+                <h3>Trabaja con Nosotros</h3>
+                <p>Envía tu CV a:</p>
+                <p><a href="mailto:careers@biosyst.com">careers@biosyst.com</a></p>
+            </div>
+        </div>
+        <div class="derechos">
+            <p>© 2024 BioSyst. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+    <script>
+        let slideAhora = 0;
+        const slides = document.querySelectorAll('.slide');
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.toggle('active', i === index);
+            });
+        }
+
+        function moveSlide(direction) {
+            slideAhora = (slideAhora + direction + slides.length) % slides.length;
+            showSlide(slideAhora);
+        }
+
+        setInterval(() => {
+            moveSlide(1);
+        }, 4000);
+
+        showSlide(slideAhora);
+    </script>
 </body>
 </html>

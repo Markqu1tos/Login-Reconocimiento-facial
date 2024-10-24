@@ -3,36 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iniciar Sesión - Reconocimiento Facial</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Iniciar Sesión - BioSyst</title>
+    <link rel="stylesheet" href="css/styles.css">
     <script src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
 </head>
 <body>
-    <div class="container">
-        <h1>Iniciar Sesión</h1>
-        
-        <div id="paso1">
-            <h2>Paso 1: Credenciales</h2>
-            <form id="login-form">
-                <input type="text" id="login-name" placeholder="Nombre de usuario" required>
-                <input type="password" id="login-password" placeholder="Contraseña" required>
-                <button type="submit" class="boton">Continuar</button>
-            </form>
+    <header>
+        <div id="Titulo">
+            <h1><a href="index.html">BioSyst</a></h1>
         </div>
-
-        <div id="paso2" style="display: none;">
-            <h2>Paso 2: Reconocimiento Facial</h2>
-            <button id="start-camera" class="boton">Iniciar Reconocimiento Facial</button>
-            <div id="video-container" style="display:none;">
-                <video id="video" width="640" height="480" autoplay muted></video>
-                <canvas id="canvas" width="640" height="480"></canvas>
+        <nav>
+            <ul>
+                <li><a href="registro.html">Registro</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="container">
+            <h1>Iniciar Sesión</h1>
+            
+            <div id="paso1">
+                <h2>Paso 1: Credenciales</h2>
+                <form id="login-form">
+                    <input type="text" id="login-name" placeholder="Nombre de usuario" required>
+                    <input type="password" id="login-password" placeholder="Contraseña" required>
+                    <button type="submit" class="boton">Continuar</button>
+                </form>
             </div>
+
+            <div id="paso2" style="display: none;">
+                <h2>Paso 2: Reconocimiento Facial</h2>
+                <button id="start-camera" class="boton">Iniciar Reconocimiento Facial</button>
+                <div id="video-container" style="display:none;">
+                    <video id="video" width="640" height="480" autoplay muted></video>
+                    <canvas id="canvas" width="640" height="480"></canvas>
+                </div>
+            </div>
+
+            <div id="mensaje"></div>
+            <p><a href="index.html">Volver al inicio</a></p>
         </div>
-
-        <div id="mensaje"></div>
-        <p><a href="index.html">Volver al inicio</a></p>
-    </div>
-
-    <script src="login.js"></script>
+    </main>
+    <footer id="contacto">
+        <div class="derechos">
+            <p>&copy; 2024 BioSyst. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+    <script src="js/login.js"></script>
 </body>
 </html>

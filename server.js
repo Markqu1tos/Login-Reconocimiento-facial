@@ -17,6 +17,7 @@ const dbConfig = {
 // Middleware
 app.use(express.json());
 app.use(express.static('public'));
+app.use('/modelos', express.static(path.join(__dirname, 'public/modelos')));
 
 // Función para obtener una conexión a la base de datos
 async function getConnection() {
