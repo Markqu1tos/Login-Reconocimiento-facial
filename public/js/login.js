@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const canvas = document.getElementById('canvas');
     const videoContainer = document.getElementById('video-container');
     let userId = null;
+    let storedFaceDescriptor = null;
     let stream;
 
     loginForm.addEventListener('submit', async (e) => {
@@ -26,6 +27,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             if (data.success) {
                 userId = data.userId;
+                storedFaceDescriptor = JSON.parse(data.faceDescriptor);
                 document.getElementById('paso1').style.display = 'none';
                 document.getElementById('paso2').style.display = 'block';
                 mostrarMensaje('Credenciales correctas. Por favor, inicie el reconocimiento facial.', 'success');
@@ -65,6 +67,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
+    const compararRostros = async (detectionUsuario, detectionAlmacenado) => {
+        const distancia = faceapi.euclideanDistance(detectionUsuario.descriptor, detectionAlmacenado);
+        const umbralSimilitud = 0.6; // Ajusta este valor según sea necesario
+        return distancia < umbralSimilitud;
+    }
+
     async function enviarFaceDescriptor(faceDescriptor) {
         try {
             console.log('Enviando descriptor facial:', faceDescriptor);
@@ -89,6 +97,23 @@ document.addEventListener('DOMContentLoaded', async () => {
         } catch (error) {
             console.error('Error:', error);
             mostrarMensaje('Error de conexión', 'error');
+        }
+    }
+
+    const verificarRostro = async () => {
+        const detections = await faceapi.detectSingleFace(video).withFaceLandmarks().withFaceDescriptor();
+        if (detections) {
+            const distancia = faceapi.euclideanDistance(detections.descriptor, storedFaceDescriptor);
+            const umbralSimilitud = 0.6; // Ajusta este valor según sea necesario
+            
+            if (distancia < umbralSimilitud) {
+                mostrarMensaje('Reconocimiento facial exitoso', 'success');
+                // Aquí puedes redirigir al usuario a la página principal o realizar otras acciones
+            } else {
+                mostrarMensaje('Reconocimiento facial fallido. Intente de nuevo.', 'error');
+            }
+        } else {
+            mostrarMensaje('No se detectó ningún rostro. Intente de nuevo.', 'error');
         }
     }
 });

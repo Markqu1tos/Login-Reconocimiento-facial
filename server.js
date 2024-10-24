@@ -48,12 +48,18 @@ app.post('/login-paso1', async (req, res) => {
     
     try {
         const connection = await getConnection();
-        const query = "SELECT id FROM usuarios WHERE nombre = ? AND password = ?";
+        const query = "SELECT id, face_descriptor FROM usuarios WHERE nombre = ? AND password = ?";
         const [results] = await connection.execute(query, [nombre, password]);
         connection.end();
 
         if (results.length > 0) {
-            res.json({ success: true, userId: results[0].id, message: 'Credenciales correctas' });
+            const { id, face_descriptor } = results[0];
+            res.json({ 
+                success: true, 
+                userId: id, 
+                faceDescriptor: face_descriptor,
+                message: 'Credenciales correctas' 
+            });
         } else {
             res.status(401).json({ success: false, message: 'Credenciales incorrectas' });
         }
@@ -67,37 +73,29 @@ app.post('/login-paso1', async (req, res) => {
 app.post('/login-paso2', async (req, res) => {
     const { userId, faceDescriptor } = req.body;
     
-    console.log('Recibido descriptor facial:', faceDescriptor);
-    console.log('ID de usuario:', userId);
-
     try {
         const connection = await getConnection();
-        const query = "SELECT face_descriptor FROM usuarios WHERE id = ?";
-        const [results] = await connection.execute(query, [userId]);
+        const [user] = await connection.execute(
+            "SELECT face_descriptor FROM usuarios WHERE id = ?",
+            [userId]
+        );
         connection.end();
 
-        if (results.length > 0) {
-            const storedDescriptor = JSON.parse(results[0].face_descriptor);
-            console.log('Descriptor almacenado:', storedDescriptor);
+        if (user.length > 0) {
+            const storedDescriptor = JSON.parse(user[0].face_descriptor);
+            const distance = euclideanDistance(faceDescriptor, storedDescriptor);
+            const threshold = 0.6; // Ajusta según sea necesario
 
-            if (!Array.isArray(storedDescriptor) || !Array.isArray(faceDescriptor)) {
-                console.error('Los descriptores no son arrays válidos');
-                return res.status(400).json({ success: false, message: 'Datos de descriptor inválidos' });
-            }
-
-            const similarity = cosineSimilarity(faceDescriptor, storedDescriptor);
-            console.log('Similitud calculada:', similarity);
-
-            if (similarity > 0.6) { // Ajusta este umbral según sea necesario
-                res.json({ success: true, message: 'Login completado con éxito' });
+            if (distance < threshold) {
+                res.json({ success: true, message: 'Autenticación exitosa' });
             } else {
-                res.status(401).json({ success: false, message: 'Verificación facial fallida' });
+                res.status(401).json({ success: false, message: 'Reconocimiento facial fallido' });
             }
         } else {
             res.status(404).json({ success: false, message: 'Usuario no encontrado' });
         }
     } catch (err) {
-        console.error("Error en la verificación facial: ", err);
+        console.error("Error en la autenticación facial: ", err);
         res.status(500).json({ success: false, error: 'Error en el servidor' });
     }
 });

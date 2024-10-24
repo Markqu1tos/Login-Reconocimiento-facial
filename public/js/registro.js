@@ -38,6 +38,25 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
+    const capturarImagen = async () => {
+        const detections = await faceapi.detectSingleFace(video).withFaceLandmarks().withFaceDescriptor();
+        if (detections) {
+            const resizedDetections = faceapi.resizeResults(detections, { width: 640, height: 480 });
+            const canvas = document.createElement('canvas');
+            canvas.width = 640;
+            canvas.height = 480;
+            faceapi.draw.drawDetections(canvas, resizedDetections);
+            
+            capturedImage = {
+                imageData: canvas.toDataURL('image/jpeg'),
+                detection: detections
+            };
+            mostrarMensaje('Imagen capturada con éxito', 'success');
+        } else {
+            mostrarMensaje('No se detectó un rostro claro. Intente de nuevo.', 'error');
+        }
+    }
+
     registroForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         if (!capturedImage) {
