@@ -1,49 +1,61 @@
 * {
     font-family: 'Arial', sans-serif;
     margin: 0;
-    padding: 0;
     box-sizing: border-box;
+    scroll-behavior: smooth;
 }
 
 body {
-    background-color: #f5f5f5;
+    background-color: rgb(255, 255, 255);
     color: #333;
-    line-height: 1.6;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+    flex: 1; 
+}
+
+body.fade-out {
+    opacity: 0;
 }
 
 header {
-    background-color: #232227;
-    padding: 1rem;
-    position: fixed;
-    width: 100%;
-    z-index: 1000;
+    justify-content: space-between;
+    background-color: rgb(32, 32, 36);
+    display: flex;
+    align-items: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    
 }
+
 
 nav {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-#Titulo a {
-    color: #fff;
-    text-decoration: none;
-    font-size: 1.5rem;
-    font-weight: bold;
+    align-items: flex-end;
+    max-width: 100%;
 }
 
 nav ul {
+    margin-right: auto;
     display: flex;
     list-style: none;
 }
 
 nav ul li {
-    margin-left: 1.5rem;
+    
+    padding-right: 50px;
+}
+
+#Titulo a {
+    padding-left: 30px;
+    
+    color: #fff;
+    text-decoration: none;
+    font-size: 60px;
+    font-weight: bold; 
 }
 
 nav a {
+    font-size: 21px;
     color: #fff;
     text-decoration: none;
     transition: color 0.3s ease;
@@ -53,14 +65,13 @@ nav a:hover {
     color: #b700ff;
 }
 
-main {
-    padding-top: 4rem;
-}
+
 
 .slider-arriba {
     position: relative;
-    height: 60vh;
+    height: 600px;
     overflow: hidden;
+    margin-top: -1px;
 }
 
 .slide {
@@ -78,6 +89,7 @@ main {
 }
 
 .slide img {
+    
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -108,71 +120,95 @@ main {
 
 #tit {
     text-align: center;
-    padding: 4rem 1rem;
+    padding-top: 50px;
+    padding-bottom: 90px;
     background-color: #fff;
 }
 
 #tit h1 {
-    font-size: 3rem;
-    margin-bottom: 1rem;
+
+    font-size: 90px;
+    margin-bottom: 40px;
 }
 
 #tit p {
-    font-size: 1.2rem;
-    max-width: 800px;
-    margin: 0 auto;
+    font-weight: bold;
+    font-size: 30px;
+    max-width: 100%;
+
 }
 
 #colum-tit {
     background-color: #232227;
     color: #fff;
-    padding: 4rem 1rem;
+    padding-top: 40px ;
 }
 
 .tit-servicios {
     text-align: center;
-    font-size: 2.5rem;
-    margin-bottom: 3rem;
+    font-size: 50px;
+    margin-bottom: 40px;
 }
 
 .columnas-tit {
     display: flex;
     justify-content: space-around;
-    max-width: 1200px;
-    margin: 0 auto;
+    max-width: 100%;
+    margin: 0 50px;
 }
 
 .columnas-a {
     flex: 1;
-    margin: 0 1rem;
+    margin: 10px 60px;
     text-align: center;
 }
 
+.columnas-a p{
+    font-size: 20px;
+margin-bottom: 60px;
+}
+
 .tit-colu-bio {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
+    font-size: 30px;
+    margin-bottom: 20px;
 }
 
 #login {
     background-color: #fff;
-    padding: 4rem 1rem;
+    padding: 60px;
     text-align: center;
 }
 
+.log-uno{
+    margin-left: 80px ;
+}
+
+.log-uno a{
+    text-decoration: none;
+}
+.reg-uno{
+    margin-right: 80px ;
+    
+}
+
+.reg-uno a{
+    text-decoration: none;
+}
+
 .log-tit {
-    font-size: 2rem;
-    margin-bottom: 2rem;
+    font-size: 50px;
+    margin-bottom: 70px;
 }
 
 .tit-log {
     display: flex;
     justify-content: center;
-    gap: 2rem;
+
 }
 
 .reg, .log {
-    padding: 1rem 2rem;
-    font-size: 1.2rem;
+    padding: 20px 30px;
+    font-size: 25px;
     text-decoration: none;
     color: #fff;
     background-color: #232227;
@@ -180,8 +216,10 @@ main {
     transition: background-color 0.3s ease;
 }
 
+
 .reg:hover, .log:hover {
     background-color: #b700ff;
+    text-decoration: none;
 }
 
 footer {
@@ -193,7 +231,7 @@ footer {
 .columnas-footer {
     display: flex;
     justify-content: space-around;
-    max-width: 1200px;
+    max-width: 80%;
     margin: 0 auto;
 }
 
@@ -227,20 +265,53 @@ footer {
     }
 }
 
+/*container de que?? si van a cambiar el css pongan alguna referencia, sino no se entiende una chota*/
 .container {
-    max-width: 600px;
-    margin: 2rem auto;
-    padding: 2rem;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    max-width: 600px; 
+    margin: 60px auto; 
+    padding: 120px; 
+    background-color: #fff; 
+    border-radius: 8px; 
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    text-align: center; 
 }
 
+/*Cambiar el tamaño de escala de la caja*/
+.container:hover{
+    transform: scale(1.05);
+}
+
+.container h1{
+    width: 100%;
+    font-size: 40px;
+    padding-bottom: 40px;
+}
+
+.container h2{
+    padding-bottom: 10px;
+}
+input[type="text"], input[type="password"], input[type="email"] {
+    width: 100%; /* Cambia a 100% para que ocupe todo el contenedor */
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: border 0.3s;
+}
+input[type="text"]:focus, input[type="password"]:focus {
+    border-color: #000; 
+    outline: none;
+}
+
+input[type="submit"]:hover, button:hover {
+    background-color: #979797;
+}
 .boton {
     background-color: #232227;
     color: #fff;
     border: none;
-    padding: 10px 20px;
+    padding: 20px 20px;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
@@ -271,3 +342,5 @@ footer {
     background-color: #ddffdd;
     color: #4CAF50;
 }
+
+/*agregar animaciones para el movimiento de transicion de la pag*/

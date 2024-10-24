@@ -34,7 +34,12 @@
                 <button type="submit" class="boton">Registrar</button>
             </form>
             <div id="mensaje"></div>
+            <div class="cuenta-sesion">
+                <p>¿Tenes cuenta?</p>
+                <a href="login.html">Inicia Sesion</a>
+            </div>
         </div>
+       
     </main>
     <footer id="footer">
         <div class="columnas-footer">
@@ -52,7 +57,7 @@
             <div class="contac">
                 <h3>Trabaja con Nosotros</h3>
                 <p>Envía tu CV a:</p>
-                <p><a href="mailto:careers@biosyst.com">careers@biosyst.com</a></p>
+                <p><a href="#">LinkedIn</a></p>
             </div>
         </div>
         <div class="derechos">
@@ -60,5 +65,27 @@
         </div>
     </footer>
     <script src="js/registro.js"></script>
+    <script>
+        // Cuando la página carga, no hacemos nada especial
+        window.onload = function() {
+            document.body.classList.remove('fade-out');
+        };
+    
+        // Agregar evento a todos los enlaces
+        document.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault(); // Evita la acción por defecto del enlace
+    
+                document.body.classList.add('fade-out'); // Agrega clase para desvanecer
+    
+                const url = this.href; // Guardamos la URL
+    
+                // Esperar a que la transición termine antes de redirigir
+                setTimeout(() => {
+                    window.location.href = url; // Redirige a la nueva página
+                }, 200); 
+            });
+        });
+    </script>
 </body>
 </html>
