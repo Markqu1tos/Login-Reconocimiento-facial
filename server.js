@@ -5,6 +5,7 @@ const path = require('path');
 const app = express();
 const upload = multer();
 const cosineSimilarity = require('compute-cosine-similarity');
+const bcrypt = require('bcrypt');
 
 // Configuración de la base de datos
 const dbConfig = {
@@ -37,9 +38,10 @@ app.post('/registro', upload.single('imagenFacial'), async (req, res) => {
     const faceDescriptor = JSON.parse(req.body.faceDescriptor);
 
     try {
+        const hashedPassword = await bcrypt.hash(password, 10); // Hash de la contraseña
         const connection = await getConnection();
         const query = "INSERT INTO usuarios (nombre, password, imagen_facial, face_descriptor) VALUES (?, ?, ?, ?)";
-        await connection.execute(query, [nombre, password, imagenFacial, JSON.stringify(faceDescriptor)]);
+        await connection.execute(query, [nombre, hashedPassword, imagenFacial, JSON.stringify(faceDescriptor)]);
         connection.end();
         res.json({ success: true, message: 'Usuario registrado con éxito' });
     } catch (err) {
@@ -54,18 +56,24 @@ app.post('/login-paso1', async (req, res) => {
     
     try {
         const connection = await getConnection();
-        const query = "SELECT id, face_descriptor FROM usuarios WHERE nombre = ? AND password = ?";
-        const [results] = await connection.execute(query, [nombre, password]);
+        const query = "SELECT id, password, face_descriptor FROM usuarios WHERE nombre = ?";
+        const [results] = await connection.execute(query, [nombre]);
         connection.end();
 
         if (results.length > 0) {
-            const { id, face_descriptor } = results[0];
-            res.json({ 
-                success: true, 
-                userId: id, 
-                faceDescriptor: face_descriptor,
-                message: 'Credenciales correctas' 
-            });
+            const { id, password: hashedPassword, face_descriptor } = results[0];
+            const passwordMatch = await bcrypt.compare(password, hashedPassword);
+
+            if (passwordMatch) {
+                res.json({ 
+                    success: true, 
+                    userId: id, 
+                    faceDescriptor: face_descriptor,
+                    message: 'Credenciales correctas' 
+                });
+            } else {
+                res.status(401).json({ success: false, message: 'Credenciales incorrectas' });
+            }
         } else {
             res.status(401).json({ success: false, message: 'Credenciales incorrectas' });
         }
@@ -91,7 +99,7 @@ app.post('/login-paso2', async (req, res) => {
         if (user.length > 0) {
             const storedDescriptor = JSON.parse(user[0].face_descriptor);
             const distance = euclideanDistance(faceDescriptor, storedDescriptor);
-            const threshold = 0.6; // Ajusta según sea necesario
+            const threshold = 0.4; // Cambia este valor según sea necesario sirve para la distancia entre los descriptores
 
             console.log('Distancia calculada:', distance); // Log para verificar
 
