@@ -105,7 +105,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (detections) {
             const distancia = faceapi.euclideanDistance(detections.descriptor, storedFaceDescriptor);
             const umbralSimilitud = 0.6; // Ajusta este valor según sea necesario
-            
+
+            console.log('Distancia calculada:', distancia); // Log para verificar
+
             if (distancia < umbralSimilitud) {
                 mostrarMensaje('Reconocimiento facial exitoso', 'success');
                 // Aquí puedes redirigir al usuario a la página principal o realizar otras acciones

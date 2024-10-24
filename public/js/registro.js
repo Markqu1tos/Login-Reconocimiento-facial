@@ -73,6 +73,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         formData.append('imagenFacial', capturedImage.imageData.split(',')[1]);
         formData.append('faceDescriptor', JSON.stringify(Array.from(capturedImage.detection.descriptor)));
 
+        console.log('Descriptor facial registrado:', capturedImage.detection.descriptor); // Log para verificar
+
         try {
             const response = await fetch('/registro', {
                 method: 'POST',

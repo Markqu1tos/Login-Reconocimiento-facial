@@ -19,6 +19,12 @@ app.use(express.json());
 app.use(express.static('public'));
 app.use('/modelos', express.static(path.join(__dirname, 'public/modelos')));
 
+// Middleware para registrar todas las solicitudes
+app.use((req, res, next) => {
+    console.log(`Solicitud recibida: ${req.method} ${req.url}`);
+    next();
+});
+
 // Función para obtener una conexión a la base de datos
 async function getConnection() {
     return await mysql.createConnection(dbConfig);
@@ -71,6 +77,7 @@ app.post('/login-paso1', async (req, res) => {
 
 // Ruta para el segundo paso del login (reconocimiento facial)
 app.post('/login-paso2', async (req, res) => {
+    console.log('Procesando /login-paso2');
     const { userId, faceDescriptor } = req.body;
     
     try {
@@ -86,6 +93,8 @@ app.post('/login-paso2', async (req, res) => {
             const distance = euclideanDistance(faceDescriptor, storedDescriptor);
             const threshold = 0.6; // Ajusta según sea necesario
 
+            console.log('Distancia calculada:', distance); // Log para verificar
+
             if (distance < threshold) {
                 res.json({ success: true, message: 'Autenticación exitosa' });
             } else {
@@ -99,6 +108,14 @@ app.post('/login-paso2', async (req, res) => {
         res.status(500).json({ success: false, error: 'Error en el servidor' });
     }
 });
+
+// Función para calcular la distancia euclidiana
+function euclideanDistance(descriptor1, descriptor2) {
+    if (descriptor1.length !== descriptor2.length) {
+        throw new Error('Los descriptores deben tener la misma longitud');
+    }
+    return Math.sqrt(descriptor1.reduce((sum, val, i) => sum + Math.pow(val - descriptor2[i], 2), 0));
+}
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Servidor corriendo en puerto ${PORT}`));
