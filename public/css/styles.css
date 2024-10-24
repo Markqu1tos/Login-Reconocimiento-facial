@@ -267,14 +267,16 @@ footer {
 
 /*container de que?? si van a cambiar el css pongan alguna referencia, sino no se entiende una chota*/
 .container {
-    max-width: 800px; 
+    max-width: 100%; 
     margin: 20px auto; 
     padding: 20px; 
+    /*
     background-color: #fff; 
     border-radius: 8px; 
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     text-align: center; 
-}
+*/
+    }
 
 /*Cambiar el tamaño de escala de la caja*/
 .container:hover{
@@ -285,6 +287,7 @@ footer {
     width: 100%;
     font-size: 40px;
     padding-bottom: 40px;
+    text-align: center;
 }
 
 .container h2{
@@ -320,6 +323,9 @@ input[type="submit"]:hover, button:hover {
     background-color: #b700ff;
 }
 
+.camara{
+    border: 3px solid red;
+}
 #video-container {
     position: relative;
     width: 640px;
@@ -329,6 +335,7 @@ input[type="submit"]:hover, button:hover {
 }
 
 #video {
+   
     width: 100%;
     height: auto;
     display: block;
