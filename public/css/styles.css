@@ -361,3 +361,88 @@ input[type="submit"]:hover, button:hover {
 
 /*agregar animaciones para el movimiento de transicion de la pag*/
 
+.registro-contenedor {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 20px;
+}
+
+.formulario, .camara {
+    flex: 1;
+    margin: 10px;
+}
+
+#video-container {
+    position: relative;
+    width: 100%;
+    max-width: 640px;
+    height: auto;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#video, #canvas {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.formulario {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.formulario h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+input[type="text"], input[type="password"] {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+input[type="text"]:focus, input[type="password"]:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.boton {
+    width: 100%;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 15px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.boton:hover {
+    background-color: #0056b3;
+}
+
+.cuenta-sesion {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.cuenta-sesion a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.cuenta-sesion a:hover {
+    text-decoration: underline;
+}

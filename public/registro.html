@@ -23,20 +23,26 @@
     <main>
         <div class="container">
             <h1>Registro de Usuario</h1>
-            <form id="registro-form">
-                <input type="text" id="registro-name" placeholder="Nombre de usuario" required>
-                <input type="password" id="registro-password" placeholder="Contraseña" required>
-                <button type="button" id="capturar-foto" class="boton">Capturar Foto</button>
-                <div id="video-container">
-                    <video id="video" width="640" height="480" autoplay muted></video>
-                    <canvas id="canvas" width="640" height="480"></canvas>
+            <div class="registro-contenedor">
+                <div class="formulario">
+                    <form id="registro-form">
+                        <input type="text" id="registro-name" placeholder="Nombre de usuario" required>
+                        <input type="password" id="registro-password" placeholder="Contraseña" required>
+                        <button type="submit" class="boton">Registrar</button>
+                    </form>
                 </div>
-                <button type="submit" class="boton">Registrar</button>
-            </form>
+                <div class="camara">
+                    <button type="button" id="capturar-foto" class="boton">Capturar Foto</button>
+                    <div id="video-container">
+                        <video id="video" width="640" height="480" autoplay muted></video>
+                        <canvas id="canvas" width="640" height="480"></canvas>
+                    </div>
+                </div>
+            </div>
             <div id="mensaje"></div>
             <div class="cuenta-sesion">
-                <p>¿Tenes cuenta?</p>
-                <a href="login.html">Inicia Sesion</a>
+                <p>¿Tienes cuenta?</p>
+                <a href="login.html">Inicia Sesión</a>
             </div>
         </div>
        
